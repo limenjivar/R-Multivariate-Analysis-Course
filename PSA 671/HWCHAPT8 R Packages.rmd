@@ -1,0 +1,30 @@
+# HWCHAPT8 R Packages
+## by Ledin Menjivar
+
+```{r}
+pop <- LifeCycleSavings[,2:3]
+oec <- LifeCycleSavings[,-(2:3)]
+cancor(pop,oec)
+```
+### CCA Package
+
+```{r}
+help.search("CCA")
+#install.packages("CCA")
+library(CCA)
+matcor(pop,oec)
+res.cc <- cc(pop,oec)
+res.cc
+plt.cc(res.cc,type="i")
+```
+
+### Yacca Package
+```{r}
+#install.packages("yacca")
+library(yacca)
+options(scipen = 999)
+cca.fit <- cca(pop,oec)
+F.test.cca(cca.fit)
+```
+
+

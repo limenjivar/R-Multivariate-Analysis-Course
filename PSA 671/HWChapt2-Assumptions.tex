@@ -1,0 +1,714 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\section{HW Chapter 2 Assumptions}\label{hw-chapter-2-assumptions}
+
+\subsection{by Ledin Menjivar}\label{by-ledin-menjivar}
+
+\subsubsection{Normality}\label{normality}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##help.search("normality")}
+\NormalTok{##install.packages("mvnormtest")}
+\KeywordTok{library}\NormalTok{(mvnormtest)}
+\KeywordTok{data}\NormalTok{(attitude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{()}
+\KeywordTok{data}\NormalTok{()}
+\KeywordTok{attach}\NormalTok{(attitude)}
+\KeywordTok{head}\NormalTok{(attitude, }\DataTypeTok{n=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    rating complaints privileges learning raises critical advance
+## 1      43         51         30       39     61       92      45
+## 2      63         64         51       54     63       73      47
+## 3      71         70         68       69     76       86      48
+## 4      61         63         45       47     54       84      35
+## 5      81         78         56       66     71       83      47
+## 6      43         55         49       44     54       49      34
+## 7      58         67         42       56     66       68      35
+## 8      71         75         50       55     70       66      41
+## 9      72         82         72       67     71       83      31
+## 10     67         61         45       47     62       80      41
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydata <-}\StringTok{ }\KeywordTok{t}\NormalTok{(attitude)}
+\KeywordTok{mshapiro.test}\NormalTok{(mydata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  Z
+## W = 0.82704, p-value = 0.0002126
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("normtest")}
+\KeywordTok{library}\NormalTok{(normtest)}
+\KeywordTok{jb.norm.test}\NormalTok{(attitude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  attitude
+## JB = 2.6059, p-value = 0.0275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{##install.packages("normwhn.test")}
+\KeywordTok{library}\NormalTok{(normwhn.test)}
+\KeywordTok{normality.test1}\NormalTok{(attitude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "sk"
+## [1] -0.37659696 -0.22665528  0.39890076 -0.05685234  0.20784850 -0.91094446
+## [7]  0.89476113
+## [1] "k"
+## [1] 2.390517 2.485446 2.770972 1.901284 2.569297 3.388175 3.708895
+## [1] "rtb1"
+## [1] -0.39953884  0.15918414  0.68213961 -0.01154936 -0.21090169 -0.62580414
+## [7]  0.61203447
+## [1] "b2"
+## [1] 2.174653 2.770865 3.699421 2.291471 2.838553 3.154168 3.684754
+## [1] "z1"
+## [1] -1.02518803  0.41544780  1.69082757 -0.03024275 -0.54905030 -1.56346957
+## [7]  1.53191792
+## [1] "z2"
+## [1] -1.25427220  0.49125566  0.71855585 -0.36330561  0.55022248  0.02143833
+## [7]  0.95044570
+## [1] "H0: data do not have skewness"
+## [1] "pvalsk"
+## [1] 0.30527448 0.67781412 0.09086974 0.97587346 0.58297093 0.11794219 0.12554269
+## [1] "H0: data do not have negative skewness"
+## [1] "pskneg"
+## [1] 0.15263724 0.66109294 0.95456513 0.48793673 0.29148547 0.05897109 0.93722865
+## [1] "H0: data do not have positive skewness"
+## [1] "pskpos"
+## [1] 0.84736276 0.33890706 0.04543487 0.51206327 0.70851453 0.94102891 0.06277135
+## [1] "H0: data do not have kurtosis"
+## [1] "pvalk"
+## [1] 0.2097431 0.6232456 0.4724146 0.7163766 0.5821668 0.9828960 0.3418858
+## [1] "H0: data do not have negative kurtosis"
+## [1] "pkneg"
+## [1] 0.1048715 0.6883772 0.7637927 0.3581883 0.7089166 0.5085520 0.8290571
+## [1] "H0: data do not have positive kurtosis"
+## [1] "pkpos"
+## [1] 0.8951285 0.3116228 0.2362073 0.6418117 0.2910834 0.4914480 0.1709429
+## [1] "H0: data are normally distributed"
+## [1] "Ep"
+##          [,1]
+## [1,] 12.84548
+## [1] "dof"
+## [1] 14
+## [1] "sig.Ep"
+##           [,1]
+## [1,] 0.5387251
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("nortest")}
+\KeywordTok{library}\NormalTok{(nortest)}
+\KeywordTok{attach}\NormalTok{(attitude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following objects are masked from attitude (pos = 6):
+## 
+##     advance, complaints, critical, learning, privileges, raises, rating
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ad.test}\NormalTok{(rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Anderson-Darling normality test
+## 
+## data:  rating
+## A = 0.45785, p-value = 0.2464
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cvm.test}\NormalTok{(rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Cramer-von Mises normality test
+## 
+## data:  rating
+## W = 0.076108, p-value = 0.2242
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lillie.test}\NormalTok{(rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  rating
+## D = 0.14663, p-value = 0.09872
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pearson.test}\NormalTok{(rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson chi-square normality test
+## 
+## data:  rating
+## P = 7.3333, p-value = 0.197
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sf.test}\NormalTok{(rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Shapiro-Francia normality test
+## 
+## data:  rating
+## W = 0.96524, p-value = 0.3545
+\end{verbatim}
+
+\subsubsection{Determinant of a Matrix}\label{determinant-of-a-matrix}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mycor <-}\StringTok{ }\KeywordTok{cor}\NormalTok{(attitude)}
+\KeywordTok{det}\NormalTok{(mycor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02186893
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mycov <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(attitude)}
+\KeywordTok{det}\NormalTok{(mycov)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.327369e+13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mymatrix <-}\StringTok{ }\KeywordTok{cov2cor}\NormalTok{(mycov)}
+\NormalTok{mymatrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               rating complaints privileges  learning    raises  critical
+## rating     1.0000000  0.8254176  0.4261169 0.6236782 0.5901390 0.1564392
+## complaints 0.8254176  1.0000000  0.5582882 0.5967358 0.6691975 0.1877143
+## privileges 0.4261169  0.5582882  1.0000000 0.4933310 0.4454779 0.1472331
+## learning   0.6236782  0.5967358  0.4933310 1.0000000 0.6403144 0.1159652
+## raises     0.5901390  0.6691975  0.4454779 0.6403144 1.0000000 0.3768830
+## critical   0.1564392  0.1877143  0.1472331 0.1159652 0.3768830 1.0000000
+## advance    0.1550863  0.2245796  0.3432934 0.5316198 0.5741862 0.2833432
+##              advance
+## rating     0.1550863
+## complaints 0.2245796
+## privileges 0.3432934
+## learning   0.5316198
+## raises     0.5741862
+## critical   0.2833432
+## advance    1.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mycor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               rating complaints privileges  learning    raises  critical
+## rating     1.0000000  0.8254176  0.4261169 0.6236782 0.5901390 0.1564392
+## complaints 0.8254176  1.0000000  0.5582882 0.5967358 0.6691975 0.1877143
+## privileges 0.4261169  0.5582882  1.0000000 0.4933310 0.4454779 0.1472331
+## learning   0.6236782  0.5967358  0.4933310 1.0000000 0.6403144 0.1159652
+## raises     0.5901390  0.6691975  0.4454779 0.6403144 1.0000000 0.3768830
+## critical   0.1564392  0.1877143  0.1472331 0.1159652 0.3768830 1.0000000
+## advance    0.1550863  0.2245796  0.3432934 0.5316198 0.5741862 0.2833432
+##              advance
+## rating     0.1550863
+## complaints 0.2245796
+## privileges 0.3432934
+## learning   0.5316198
+## raises     0.5741862
+## critical   0.2833432
+## advance    1.0000000
+\end{verbatim}
+
+\subsubsection{Equality of Variance-Covariance
+Matrix}\label{equality-of-variance-covariance-matrix}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{group <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"boy"}\NormalTok{, }\StringTok{"girl"}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{,}\DecValTok{15}\NormalTok{))}
+\NormalTok{newdata <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(attitude,group)}
+\KeywordTok{head}\NormalTok{(newdata, }\DataTypeTok{n=}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    rating complaints privileges learning raises critical advance group
+## 1      43         51         30       39     61       92      45   boy
+## 2      63         64         51       54     63       73      47   boy
+## 3      71         70         68       69     76       86      48   boy
+## 4      61         63         45       47     54       84      35   boy
+## 5      81         78         56       66     71       83      47   boy
+## 6      43         55         49       44     54       49      34   boy
+## 7      58         67         42       56     66       68      35   boy
+## 8      71         75         50       55     70       66      41   boy
+## 9      72         82         72       67     71       83      31   boy
+## 10     67         61         45       47     62       80      41   boy
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen =} \DecValTok{999}\NormalTok{)}
+\NormalTok{boys <-}\StringTok{ }\NormalTok{newdata[}\DecValTok{1}\OperatorTok{:}\DecValTok{15}\NormalTok{,]}
+\NormalTok{boycov <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(boys[,}\OperatorTok{-}\DecValTok{8}\NormalTok{])}
+\KeywordTok{det}\NormalTok{(boycov)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 757123067103
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{girls <-}\StringTok{ }\NormalTok{newdata[}\DecValTok{16}\OperatorTok{:}\DecValTok{30}\NormalTok{,]}
+\NormalTok{girlcov <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(girls[,}\OperatorTok{-}\DecValTok{8}\NormalTok{])}
+\KeywordTok{det}\NormalTok{(girlcov)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7779163547559
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("psych")}
+\KeywordTok{library}\NormalTok{(psych)}
+\KeywordTok{describeBy}\NormalTok{(newdata,}\DataTypeTok{group=}\NormalTok{group)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Descriptive statistics by group 
+## group: boy
+##            vars  n  mean    sd median trimmed   mad min max range  skew
+## rating        1 15 65.00 10.66     67   65.46  5.93  43  81    38 -0.82
+## complaints    2 15 66.73 10.37     64   66.69 13.34  51  83    32  0.13
+## privileges    3 15 53.47 12.96     51   53.00  8.90  30  83    53  0.59
+## learning      4 15 53.33 11.18     54   53.00 14.83  39  72    33  0.28
+## raises        5 15 63.87  7.96     62   63.46 10.38  54  79    25  0.41
+## critical      6 15 74.80 10.92     77   75.46 10.38  49  92    43 -0.60
+## advance       7 15 39.00  6.89     41   39.38  8.90  25  48    23 -0.28
+## group*        8 15  1.00  0.00      1    1.00  0.00   1   1     0   NaN
+##            kurtosis   se
+## rating        -0.10 2.75
+## complaints    -1.41 2.68
+## privileges    -0.03 3.35
+## learning      -1.47 2.89
+## raises        -1.21 2.06
+## critical      -0.22 2.82
+## advance       -1.13 1.78
+## group*          NaN 0.00
+## ------------------------------------------------------------ 
+## group: girl
+##            vars  n  mean    sd median trimmed   mad min max range  skew
+## rating        1 15 64.27 13.89     65   64.54 19.27  40  85    45 -0.08
+## complaints    2 15 66.47 16.12     66   66.92 16.31  37  90    53 -0.26
+## privileges    3 15 52.80 11.91     52   52.92 14.83  33  71    38  0.05
+## learning      4 15 59.40 11.86     59   60.15 14.83  34  75    41 -0.42
+## raises        5 15 65.40 12.62     64   65.38 16.31  43  88    45  0.01
+## critical      6 15 74.73  9.14     78   75.54  2.97  54  85    31 -1.18
+## advance       7 15 46.87 11.78     46   46.00 13.34  33  72    39  0.57
+## group*        8 15  1.00  0.00      1    1.00  0.00   1   1     0   NaN
+##            kurtosis   se
+## rating        -1.35 3.59
+## complaints    -1.12 4.16
+## privileges    -1.49 3.08
+## learning      -0.84 3.06
+## raises        -1.08 3.26
+## critical       0.02 2.36
+## advance       -0.89 3.04
+## group*          NaN 0.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cov.list <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(}\KeywordTok{unique}\NormalTok{(newdata}\OperatorTok{$}\NormalTok{group),}\ControlFlowTok{function}\NormalTok{(x)}\KeywordTok{cov}\NormalTok{(newdata[newdata}\OperatorTok{$}\NormalTok{group}\OperatorTok{==}\NormalTok{x,}\OperatorTok{-}\DecValTok{8}\NormalTok{]))}
+\NormalTok{cov.list[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+##               rating complaints privileges  learning   raises  critical
+## rating     113.71429  80.071429   75.00000  74.00000 50.28571  29.21429
+## complaints  80.07143 107.495238   96.77619  68.02381 51.60476  27.08571
+## privileges  75.00000  96.776190  167.98095  55.33333 25.78095   5.10000
+## learning    74.00000  68.023810   55.33333 124.95238 76.19048  28.00000
+## raises      50.28571  51.604762   25.78095  76.19048 63.40952  33.40000
+## critical    29.21429  27.085714    5.10000  28.00000 33.40000 119.31429
+## advance     12.35714   6.214286  -18.14286  26.78571 31.64286  36.50000
+##               advance
+## rating      12.357143
+## complaints   6.214286
+## privileges -18.142857
+## learning    26.785714
+## raises      31.642857
+## critical    36.500000
+## advance     47.428571
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cov.list[}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+##                rating complaints privileges    learning    raises   critical
+## rating     192.923810  196.93810   56.20000 112.9571429 105.02857  9.7904762
+## complaints 196.938095  259.69524   91.52857 126.0142857 140.51429 24.1333333
+## privileges  56.200000   91.52857  141.88571  93.5857143  92.15714 31.8000000
+## learning   112.957143  126.01429   93.58571 140.6857143  80.68571  0.1142857
+## raises     105.028571  140.51429   92.15714  80.6857143 159.25714 46.9714286
+## critical     9.790476   24.13333   31.80000   0.1142857  46.97143 83.4952381
+## advance     30.966667   58.63810  110.47143  80.6285714  89.12857 23.5333333
+##              advance
+## rating      30.96667
+## complaints  58.63810
+## privileges 110.47143
+## learning    80.62857
+## raises      89.12857
+## critical    23.53333
+## advance    138.69524
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boys <-}\StringTok{ }\NormalTok{newdata[}\DecValTok{1}\OperatorTok{:}\DecValTok{15}\NormalTok{,]}
+\NormalTok{boycov <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(boys[,}\OperatorTok{-}\DecValTok{8}\NormalTok{])}
+\NormalTok{boycor <-}\StringTok{ }\KeywordTok{cov2cor}\NormalTok{(boycov)}
+\NormalTok{boycor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               rating complaints  privileges  learning    raises   critical
+## rating     1.0000000 0.72422823  0.54265490 0.6208003 0.5921884 0.25080809
+## complaints 0.7242282 1.00000000  0.72018470 0.5869405 0.6250545 0.23916601
+## privileges 0.5426549 0.72018470  1.00000000 0.3819307 0.2497996 0.03602417
+## learning   0.6208003 0.58694049  0.38193068 1.0000000 0.8559555 0.22931874
+## raises     0.5921884 0.62505455  0.24979957 0.8559555 1.0000000 0.38399273
+## critical   0.2508081 0.23916601  0.03602417 0.2293187 0.3839927 1.00000000
+## advance    0.1682637 0.08703152 -0.20326174 0.3479453 0.5770035 0.48520651
+##                advance
+## rating      0.16826374
+## complaints  0.08703152
+## privileges -0.20326174
+## learning    0.34794527
+## raises      0.57700347
+## critical    0.48520651
+## advance     1.00000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{girls <-}\StringTok{ }\NormalTok{newdata[}\DecValTok{16}\OperatorTok{:}\DecValTok{30}\NormalTok{,]}
+\NormalTok{girlcov <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(girls[,}\OperatorTok{-}\DecValTok{8}\NormalTok{])}
+\NormalTok{girlcor <-}\StringTok{ }\KeywordTok{cov2cor}\NormalTok{(girlcov)}
+\NormalTok{girlcor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                rating complaints privileges    learning    raises    critical
+## rating     1.00000000  0.8798423  0.3396832 0.685639429 0.5991907 0.077140073
+## complaints 0.87984228  1.0000000  0.4768210 0.659269203 0.6909379 0.163890758
+## privileges 0.33968320  0.4768210  1.0000000 0.662392222 0.6130702 0.292164154
+## learning   0.68563943  0.6592692  0.6623922 1.000000000 0.5390415 0.001054475
+## raises     0.59919073  0.6909379  0.6130702 0.539041483 1.0000000 0.407336620
+## critical   0.07714007  0.1638908  0.2921642 0.001054475 0.4073366 1.000000000
+## advance    0.18930879  0.3089706  0.7874987 0.577209127 0.5997037 0.218686421
+##              advance
+## rating     0.1893088
+## complaints 0.3089706
+## privileges 0.7874987
+## learning   0.5772091
+## raises     0.5997037
+## critical   0.2186864
+## advance    1.0000000
+\end{verbatim}
+
+\subsubsection{Box M Test}\label{box-m-test}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("biotools")}
+\KeywordTok{library}\NormalTok{(biotools)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: MASS
+\end{verbatim}
+
+\begin{verbatim}
+## ---
+## biotools version 4.0
+\end{verbatim}
+
+\begin{verbatim}
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(iris)}
+\KeywordTok{factor}\NormalTok{(iris[,}\DecValTok{5}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] setosa     setosa     setosa     setosa     setosa     setosa    
+##   [7] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [13] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [19] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [25] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [31] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [37] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [43] setosa     setosa     setosa     setosa     setosa     setosa    
+##  [49] setosa     setosa     versicolor versicolor versicolor versicolor
+##  [55] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [61] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [67] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [73] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [79] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [85] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [91] versicolor versicolor versicolor versicolor versicolor versicolor
+##  [97] versicolor versicolor versicolor versicolor virginica  virginica 
+## [103] virginica  virginica  virginica  virginica  virginica  virginica 
+## [109] virginica  virginica  virginica  virginica  virginica  virginica 
+## [115] virginica  virginica  virginica  virginica  virginica  virginica 
+## [121] virginica  virginica  virginica  virginica  virginica  virginica 
+## [127] virginica  virginica  virginica  virginica  virginica  virginica 
+## [133] virginica  virginica  virginica  virginica  virginica  virginica 
+## [139] virginica  virginica  virginica  virginica  virginica  virginica 
+## [145] virginica  virginica  virginica  virginica  virginica  virginica 
+## Levels: setosa versicolor virginica
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxM}\NormalTok{(iris[,}\OperatorTok{-}\DecValTok{5}\NormalTok{],iris[,}\DecValTok{5}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Box's M-test for Homogeneity of Covariance Matrices
+## 
+## data:  iris[, -5]
+## Chi-Sq (approx.) = 140.94, df = 20, p-value < 0.00000000000000022
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("biotools")}
+\KeywordTok{library}\NormalTok{(biotools)}
+\KeywordTok{data}\NormalTok{(newdata)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in data(newdata): data set 'newdata' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{factor}\NormalTok{(newdata[,}\DecValTok{8}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] boy  boy  boy  boy  boy  boy  boy  boy  boy  boy  boy  boy  boy  boy  boy 
+## [16] girl girl girl girl girl girl girl girl girl girl girl girl girl girl girl
+## Levels: boy girl
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxM}\NormalTok{(newdata[,}\OperatorTok{-}\DecValTok{8}\NormalTok{], newdata[,}\DecValTok{8}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Box's M-test for Homogeneity of Covariance Matrices
+## 
+## data:  newdata[, -8]
+## Chi-Sq (approx.) = 34.069, df = 28, p-value = 0.1986
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,188 @@
+
+#HW Chapter 3 Assumptions
+## by Ledin Menjivar
+
+## Hotelling $T^{2}$ Sample
+
+### Single Sample
+**Step 1**
+```{r}
+#install.packages("ICSNP")
+#install.packages("mvtnorm")
+library(ICSNP)
+library(mvtnorm)
+```
+
+**Step 2**
+```{r}
+Y1 <- c(-2,-4,-6,-3,-7,-2,-1,-8,-6,-9)
+Y2 <- c(3,4,9,3,5,4,2,4,2,8)
+Y12 <- data.frame(Y1,Y2)
+names(Y12) <- c("Y1","Y12")
+attach(Y12)
+print(Y12)
+```
+
+**Step 3**
+```{r}
+cor(Y12)
+mean(Y1); sd(Y1)
+mean(Y2); sd(Y2)
+```
+
+**Step 4**
+```{r}
+#install.packages("psych")
+library(psych)
+error.bars(Y12,bar=F,ylab="Group Means",xlab="Dependent Variables", ylim = c(-10,10),eyes = F)
+```
+
+**Step 5**
+```{r}
+muHo <- c(0,0)
+HotellingsT2(Y12,mu=muHo)
+```
+
+### Two Independent Group Mean Difference
+**Step 1**
+```{r}
+library(ICSNP)
+library(mvtnorm)
+```
+
+**Step 2**
+```{r}
+roger <- matrix(c(1,3,2,3,7,2),3,2)
+adler <- matrix(c(4,6,6,5,5,4,6,8,8,10,10,6),6,2)
+grp <- matrix(c(1,1,1,2,2,2,2,2,2),9,1)
+roger
+adler
+grp
+Y = data.frame(rbind(roger,adler))
+names(Y) <- c("effect","satis")
+attach(Y)
+factor(grp)
+options(scipen=999)
+Y
+```
+
+**Step 3**
+```{r}
+cor(effect,satis)
+mean(effect); sd(effect)
+mean(satis); sd(satis)
+```
+
+**Step 4**
+```{r}
+#install.packages("gplots")
+library(gplots)
+group <- data.frame(grp)
+Yall <- data.frame(group,Y)
+par(mfrow= c(2, 1))
+plotmeans(effect ~grp,data=Yall,ylim=c(0,10),xlab="Groups",
+          legends=c("Rogerian","Alderian"),main="Counseling Effectiveness",connect=F,mean.labels=T,col=NULL,p=1.0)
+
+plotmeans(satis ~grp,data=Yall,ylim=c(0,10),xlab="Groups",
+          legends=c("Rogerian","Alderian"),main="Counseling Satisfaction",connect=F,mean.labels=T,col=NULL,p=1.0)
+```
+
+**Step 5**
+```{r}
+#install.packages("biotools")
+library(biotools)
+factor(grp)
+boxM(Y,grp)
+```
+
+**Step 6**
+```{r}
+HotellingsT2(roger,adler)
+```
+
+**Step 7**
+```{r}
+n1 <- 3
+n2 <- 6
+p <- 2
+T <- 3
+df1 <- p
+df2 <- n1 + n2 - p - 1
+Fval <- (df2/df1) * T
+pval <- round(1-pf(Fval,df1,df2),digits=3)
+cat("T = ",T,"F-value = ",Fval,"df1 = ",df1,"df2 =",df2,"p-value =",pval,fill=F,"\n")
+```
+
+
+
+### Two Groups(Paired) Dependent Variable, Mean Difference
+**Step1**
+```{r}
+library(ICSNP)
+library(mvtnorm)
+```
+
+**Step 2**
+```{r}
+PreBoy <- c(12,16,18,12,10)
+PostBoy <- c(14,16,18,10,12)
+PreGirl <-c(5,2,7,4,15)
+PostGirl <- c(8,2,16,10,14)
+mydata <- data.frame(PreBoy,PostBoy,PreGirl,PostGirl)
+attach(mydata)
+mydata
+```
+
+**Step 3**
+```{r}
+mean(PreBoy); sd(PreBoy)
+mean(PostBoy); sd(PostBoy)
+mean(PreGirl); sd(PreGirl)
+mean(PostGirl); sd(PostGirl)
+```
+
+**Approach 1 Compare Boys and girls pop Quiz Difference Score**
+```{r}
+diffBoy <- PostBoy - PreBoy
+diffGirl <- PostGirl - PreGirl
+mean(diffBoy); sd(diffBoy)
+mean(diffGirl); sd(diffGirl)
+
+library(psych)
+YDiff <- data.frame(diffBoy,diffGirl)
+YDiff
+error.bars(YDiff,bar=F,ylab="Group Means",xlab="Dependent variables",ylim=c(-10,10),eyes=F)
+
+muHo <- c(0)
+HotellingsT2(diffBoy,mu=muHo)
+
+muHo <- c(0)
+HotellingsT2(diffGirl,mu=muHo)
+
+g <- 2
+N <- 5
+Group <-matrix(rep(1:g,each=N))
+Pre <- c(PreBoy,PreGirl)
+Post <- c(PostBoy,PostGirl)
+All <- data.frame(Pre,Post,Group)
+names(All) <- c("Pre","Post","Group")
+factor(Group)
+All
+
+#Step 2
+mean(Pre)
+mean(Post)
+
+#Step 3
+Diff <- cbind(Post-Pre)
+Diff
+mean(Diff)
+
+muHo <- c(0)
+HotellingsT2(Diff,mu=muHo)
+```
+
+
+
+
+

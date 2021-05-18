@@ -1,0 +1,79 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+# Exam 2 Chapters 4 and 5
+## by Ledin Menjivar
+
+### Task 1 
+
+**1.**
+```{r}
+head(iris)
+str(iris)
+summary(iris)
+```
+
+**2.**
+ The dataset iris contains 150 observations for 3 different flowers setosa, versicolor and virginica. And it contains the measurements for sepal length and width and the measurements for petal length and width. These measurements are in centimeters for the different species of flowers. The help() function was also used. 
+ 
+ **3.**
+  The head() function will by default return the first 6 observations within our dataset.The number of obeservations can also be specified with heaad(iris,n) where n is the number of observations to be returned. 
+  
+**4**
+```{r}
+boxplot(formula=Petal.Length~Species, data = iris)
+
+boxplot(formula=Petal.Length~Species, data = iris, plot=F)
+```
+ 
+The assigned code for this problem returns creates a boxplot which shows petal lengths for each species of flower in the dataset iris. By setting $plot=F$ we can also see the actual statistical values used to create each boxplot. From the boxplot figure we can see we have two outliers, 1 in setosa species and another in the versicolor species of flowers. We can also see that we have the medians: $setosa= 1.5cm$, $versicolor=4.35cm$ and $virginica=5.55cm$. Thus we can determine that the species virginica will have a longer petal length on average. From our diagram we can also see that for the setosa species we have smaller upper and lower extremums than the other two flowers which we have lower extremum for setosa $= 1.1cm$ and upper extremum for setosa = $1.9cm$. Thus we can also determine that the setosa species will always have smaller petal lengths than that of the other two species. We can also see that we may sometimes have longer petal lengths for the species versicolor than that of the virginica flower because of: upper extremum of versicolor = $5.10cm$ and we have lower extremum of virginica$=4.50$.
+
+**5.**
+```{r}
+model1 <- manova(cbind(Sepal.Length,Sepal.Width) ~ Species, data=iris)
+```
+ 
+ **6.**
+The code chunk in question $5$ tests for variance when there are more than one dependent variables. Here our dependent variables are Sepal.Length and Sepal.Width. And our independent variable is Species. 
+
+**7.**
+No. Because there is no print or summary statement to show the results.
+
+**8.**
+```{r}
+summary.aov(model1)
+```
+
+**9.**
+We have a p-value of $2.2e^{-16}$ for both Sepal.Length and Sepal.Width. Thus we have a statistically significant value. Thus we don't have variability between the different species and their Sepal Length and width. Therefore, their Sepal Length and width depends on what species of flower it is in our dataset.
+
+### Task 2
+
+**1**
+```{r}
+data(iris)
+iris
+```
+
+```{r}
+#install.packages('jmv')
+library(jmv)
+```
+
+```{r}
+mancova(data=iris,deps=vars(Sepal.Length,Sepal.Width,Petal.Length,Petal.Width),factor=Species)
+```
+
+**2.**
+The above is a test for covariance analysis between multiple dependent variables and their categorical variables. It is used to explore their relationships between those dependent and categorical variables. Here, our independent variable is still Species and our independent variables are Sepal.Length,Sepal.Width,Petal.Length and Petal.Width. For each test conducted using the Mancova() function we get a p-value of $.0000001$. Hence we have a statistically significant value and we see that length and width for both sepal and petals still dend on what species of flower we have in our data set. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

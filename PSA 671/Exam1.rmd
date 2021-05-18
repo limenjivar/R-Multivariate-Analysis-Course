@@ -1,0 +1,191 @@
+
+#Exam 1
+## By Ledin Menjivar
+
+```{r}
+load('turtles.rda')
+head(turtles)
+```
+
+### Question 1
+**1**
+```{r}
+dim(turtles)
+
+```
+The dim() function in R returns the dimension of our data frame in rows by columns. In this case it returns $48$ rows and $4$ columns. 
+
+**2**
+```{r}
+str(turtles)
+```
+The str() function returns the structure of the data frame and tells us whats in the data. In this case we see that we have a column with factors and three columns which have integer values.We also see that we have 48 observations which are our rows and 4 variables which are the columns. 
+
+**3**
+```{r}
+summary(turtles)
+```
+
+The summary() function gives a summary of basic statistic with in the data frame. If the data is not a numeric value the it may also include counts for whats in the data.
+
+**4**
+```{r}
+colnames(turtles)
+```
+
+The colnames() function returns the names of each column with in our data.
+
+**5**
+```{r}
+View(turtles)
+```
+
+The view function returns a different window where you can view your data as a table. 
+
+**6**
+```{r}
+head(turtles)
+```
+The head() function displays the first 6 rows by default with in our data. The number of rows to display can also be specified. 
+
+**7**
+```{r}
+tail(turtles)
+```
+
+The tail() function will display by default the last 6 rows of our data. The amount of rows can also be specified.
+
+**8**
+```{r}
+plot(turtles)
+```
+
+The plot() function plots one vector vs another and plots the points in a chart. 
+
+###Question 2
+**(a)**
+```{r}
+X1 = turtles$Length
+X2 = turtles$Width
+X3 = turtles$Height
+X = cbind(X1,X2,X3)
+```
+**(b)**
+The first three lines of the R code assigns three different variables to each of the three columns creating three different vectors. 
+
+**(c)**
+The last line of code combines the three different vectors by columns. The dimensions of the vectors must also be of the same length. 
+
+### Question 3
+**(a)**
+```{r}
+library(mvnormtest)
+ mshapiro.test(t(X))
+```
+
+**(b)**
+This code chunk tests for normality. And it uses the Shapiro-Wilk test to check for multivariate normality. The function mshapiro.test() must take in a data frame of numeric values to perform the test.
+
+```{r, echo=FALSE}
+shapirovalue <- mshapiro.test(t(X))
+pValue <- shapirovalue$p.value
+```
+**(c)**
+Using this test for normality we have p-value = $`r pValue`$. This indicates that one or more variables are not normaly distrivuted, therefore multivariate normality does not hold.
+
+**(d)**
+Yes. This t() is a function which will transpose our data frame. This is necessary so that our observations are in a column and the variables of those observations are in rows. This is necessary for the mshapiro.test() function to work.
+
+### Question 4
+**(a)**
+```{r}
+X.SM = apply(X,MARGIN = 2, FUN = mean)
+X.SM
+```
+
+**(b)**
+This code chunk will apply the mean function and return the mean of each column in X. 
+
+### Question 5
+**(a)**
+```{r}
+M.VC = var(X)
+M.VC
+```
+
+```{r}
+M.VC = cov(X)
+M.VC
+```
+
+```{r}
+det(M.VC)
+```
+
+```{r}
+M.VC = cor(X)
+M.VC
+```
+
+**(b)**
+The first chunk of code calculates the variance of the data. 
+The second chunk of code calculates the covariance of our data. 
+
+**(c)**
+The third chunk of code calculates the determinat of the data. 
+The determinant of our data is $12790.67$. Which is a positive value greater than $0$ and tells us we have a nonsingular matrix. Therefore we can proceed with our multivariate statistical analysis. 
+
+**(d)**
+The fourth code chunk calculates the correlation matrix of our data.
+In the first and second code chunks we have the same matrix. For the third chunk the correlation matrix, we have positive values with $1$ on our diagonals which indicate a positive relationship between variables. 
+
+### Question 6
+```{r}
+library(biotools)
+data(turtles)
+factor(turtles[,1])
+boxM(turtles[,-1],turtles[,1])
+```
+
+**(a)**
+The code chunk use the Box M Test which tests the equality of matrices between groups. It will specifically test for equality between variance and covariance matrices. 
+
+**(b)**
+We have a P-value of $0.0005141$ and a chi squared value of $24.037$ which indicate we have normality in our data and equal variance and covariance. 
+
+### Question 7
+**(a)**
+```{r}
+#install.packages("ICSNP")
+library(ICSNP)
+hypvedatact = c(149,100,53)
+test = HotellingsT2(X,mu=hypvedatact,test="f")
+print(test)
+```
+
+**(b)**
+The code uses a one sample T2 test and especifically is the two group (dependent) variable mean difference test. The test also uses the F-Distribution for the Hotellings T2 test. Running the code we get $T.2 = 251.2$ and $p-value = 2.2*e^{-16}$. This shows that our mean difference is statistically significant in our data. 
+
+### Question 8
+
+**(a)**
+```{r}
+#install.packages("ICSNP")
+library(ICSNP)
+library(dplyr)
+HotellingsT2(filter(turtles,Gender=="Male")[,2:4],filter(turtles,Gender=="Female")[,2:4])
+```
+
+**(b)**
+This code is the Hotelling's two sample T2-test. Especifically is the Two Independent Group Mean Difference test. We get the values $T2 = 21.284$ and $p-value = 1.141*e^{-08}$. Thus we can deduce that the male and female turtles are positively cor-related.
+
+
+
+
+
+
+
+
+
+
+

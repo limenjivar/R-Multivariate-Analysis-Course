@@ -1,0 +1,94 @@
+#HWCHAPT10 PCA Basic
+## by Ledin Menjivar
+###PCA Analysis
+
+```{r}
+#Entering and displaying a square matrix in R. This matrix has 5 rows and 5 columns.
+s <- matrix(c(44.23,22.42,31.23,32.54,19.22,22.42,55.13,22.55,25.56,23.15,31.23,22.55,61.21,29.42,
+              27.35,32.54,25.56,29.42,57.42,33.34,19.22,23.15,27.35,33.34,72.36),nrow=5,ncol=5,
+            byrow=F)
+s
+```
+
+```{r}
+# convert variance-covariance to R correlation matrix (observe on the main diagonal entries are all = 1)
+R <- cov2cor(s)
+R
+
+```
+
+
+```{r}
+#Determinant of matrices S and R.
+det(s)
+det(R)
+```
+
+```{r}
+#Calculating the eigenvalues and eigenvectors of the matrix S.
+out <- eigen(s)
+out
+```
+
+```{r}
+#Multiply eigenvector matrix by transpose of eigenvector matrix.
+v <- out$vectors
+tv <- t(out$vectors)
+# Compute the identity matrix.
+I <- v %*% tv
+#Round the identity matrix. The identity matrix consists of 1's in the main diagonal and o's elsewhere. 
+round(I,2)
+```
+
+### Compute Eigenvalues from matrices
+```{r}
+options(scipen=999)
+R <- cov2cor(s)
+R
+out2 <- eigen(R)
+v <- out2$vectors
+tv <- t(out2$vectors)
+E <- tv %*% R %*% v
+E <- rbind(E[1,1],E[2,2],E[3,3],E[4,4],E[5,5])
+E
+```
+
+```{r}
+#Identity matrix for correlations
+out2 <- eigen(R)
+E <- out2$vectors
+tE <- t(out2$vectors)
+I2 <- E %*% tE
+round(I2,2)
+```
+
+```{r}
+smatrix.pca <- princomp(s,scores=T,cor=T)
+summary(smatrix.pca)
+```
+
+```{r}
+# The plot function gives a generic visualization of our data by plotting x and y coordinates. From the visualization we can determine that Comp.1 had the highest variance and Comp.5 had a variance of 0.As we move from comp.1 to comp.5 we get lower variances. 
+plot(smatrix.pca)
+```
+
+```{r}
+# This function will create a biplot of our data. It will use the eigenvectors to create the visualization of the biplot.
+biplot(smatrix.pca)
+```
+
+```{r}
+summary(smatrix.pca)
+smatrix.pca$scores
+```
+
+
+
+
+
+
+
+
+
+
+

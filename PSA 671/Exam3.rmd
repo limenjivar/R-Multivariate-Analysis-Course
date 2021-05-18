@@ -1,0 +1,199 @@
+#MAT 471_671 CH 7_8_10 Exam 3
+## by Ledin Menjivar
+
+###Chapter 7 Discriminant Analysis
+
+```{r}
+#install.packages("MASS")
+library(MASS)
+```
+
+```{r}
+#Q1.Run the below code chunk. What does it do? Briefly describe the data set.
+##################################################################################################################
+#Answer: The dataset iris contains 150 observations for 3 different flowers setosa, versicolor and virginica. And it contains the measurements for sepal length and width and the measurements for petal length and width. These measurements are in centimeters for the different species of flowers. The below code will print out the entire iris data set.
+
+iris
+```
+
+```{r}
+#Q2: Run the below code chunk. What does it do? Briefly describe the function "lda"
+###################################################################################################
+#Answer: The lda functioin is a linear discriminant analysis test. This test will give us Group mean values, our discriminant weights and will also give the probabilities of each group within our data set. From the below chunk of data we see that we have equal group sizes since we .3333 for the probabilities of each group hence we have equal sample sizes. We also have a good seperation for the group mean sizes.
+
+ldaout <- lda(Species~., iris)
+ldaout
+```
+
+```{r}
+#Q3: Run the below code chunk. What does it do? Briefly describe the funcltion predict.
+################################################################################################
+#Answer: The predict function generates prediction for of a linear model. The bottom code chunck generates predictions for flower types based of the linear model ldaout. 
+
+ldapred <- predict(ldaout,iris)
+ldapred
+```
+
+```{r}
+#Q4: Run the below code chunk. What does it do? Explain "ldapred$class"
+##############################################################################################
+#Answer: "ldapred$class" calls on the specified column named class within the data frame ldapred. The below code chunck takes that column renames it ldaclass and prints it. 
+
+ldaclass <- ldapred$class
+ldaclass
+```
+
+```{r}
+#Q5: Run the below code chunk. What does it do? Describe the "table" function and explain "table(ldaclass,iris$Species)." Also, explain and disscuss the output.
+#############################################################################################
+#Answer: The table function in R creates a table of categorical data and its frequency. The below code creates a table of ldclass and iris$species that we can use to verify the acuracy of our predictions from ldaclass. And from our results in the table ldatable we can see that 50/50 setosa flowers where predicted correct. We see that 48 versicolor where predicted correct and that 1 was predicted versicolor when it was virginica. And lastly 49 virginica flowers where predicted correctly. 
+
+ldatable <- table(ldaclass,iris$Species)
+ldatable
+```
+
+```{r}
+#Q6: Run the below code chunk. What does it do? describe and explain "sum(diag(ldtable))/sum(diag(ldtable))*100." Also, explain and disscuss the output.
+##########################################################################
+#Answer: The below code will sum up the diagonals which are the correct predictions of the table ldatable and a percentage of total correct predictions. From the below calculation we receive a 100% for correct predictions.
+
+accur <- sum(diag(ldatable))/sum(diag(ldatable))*100
+accur
+```
+
+### Chapter 8 Canonical Correlation Analysis
+```{r}
+attach(iris)
+```
+```{r}
+#Q7: Run the below code chunk. What does it do? Explain the statement "apply(iris[,-5],2,var)" Explain "sweep(iris[,-5],2,standarddev,Fun="/")." Also explain and disscuss the output.
+######################################################################
+#Answer: The statement apply(iris[,-5],2,var) will apply the variance function to iris[,-5] and find its variance calculation. From the results we see that sepal length has a variance of 0.6856935 and a standard deviation of 0.8280661. Sepal width has a variance of 0.1899794 and a std of 0.4358663. Petal length has a high variance of 3.1162779 and a std of 1.7652982. And petal length has a variance of 0.5810063 and a std of 0.7622377. The statement sweep(iris[,-5],2,standarddev,Fun="/") will divide each value by its corresponding standard deviation and will print out the results.
+
+iris
+variancescolums <- apply(iris[,-5],2,var)
+variancescolums
+standarddev <- sqrt(variancescolums)
+standarddev
+iris1.std <- sweep(iris[,-5],2,standarddev,FUN ="/")
+iris1.std
+```
+
+```{r}
+#Q8: Run the below code chunk. What does it do? Explain and disscuss the output.
+#############################################################################
+#Answer: The below code chunk splits out the standard deviations for sepal and petal and renames the results accordingly.
+
+sepal.meas <- iris1.std[,1:2]
+petal.meas <- iris1.std[,3:4]
+sepal.meas
+petal.meas
+```
+
+```{r}
+#Q9: Run the code chunk. What does it do? Explain and disscuss the output.
+################################################
+# Answer: The bottom chunk of code does a canocical correlation analysis on sepal and petal for length and width. We get the values 0.9409690 for sepal and 0.1239369 for petals as our canonical correlations. Thus we can see that sepal length and width will have a bigger effect when predicting flower type. 
+
+cancor(sepal.meas,petal.meas)
+```
+
+### Chapter 10 Principal Component Analysis
+
+```{r}
+#Q10: Run the below code chunk. What does it do? Describe the function "prcomp" Also, explain and disscuss the outpur
+#################################################
+#Answer: The function prcomp performs a principal component analysis on the data set. It will return a table of eigen values from a data matrix which will be PC values. These PC values will tell us the direction of a given PC variable is going towards on a single dimensional vector. From our results from the bottom chunk of code we see that for sepal length PC3 plays a bigger role in the variation of our results. While sepal width we see that PC2 has larger effect. For petals, PC4 has a bigger role on the length while for width PC3 has a bigger role. 
+
+myPr1 <- prcomp(iris[,-5])
+myPr1
+myPr <- prcomp(iris[,-5],scale = TRUE)
+myPr
+```
+
+```{r}
+#Q11: Run the below code chunk. What does it do? Describe the function Plot.
+########################################
+#Answer: The plot function creates a generic visualization of the data. The type of visualization will depend on the input parameters. The below code chunk creates three different scaterplots of sepal length and width. 
+
+plot(iris$Sepal.Length,iris$Sepal.Width)
+
+plot(scale(iris$Sepal.Length), scale(iris$Sepal.Width))
+
+plot(iris$Sepal.Length-mean(iris$Sepal.Length)/sd(iris$Sepal.Length))
+```
+
+```{r}
+#Q12: Run the code chunk. What does it do? Explain and disscuss the output.
+#######################################
+#Answer: The below code chunk prints a summary of the PC values calculated in myPr. The PC values from the bottom code prints the 5 values in descending order. The sum of the eiganvalues will add to 100%. The cumulative variance will explain the incremental increase that sums to 100%.
+summary(myPr)
+```
+
+```{r}
+#Q13: Run the code chunk. What does it do? Explain and discuss the output.
+##################################################################
+#Answer: The bottom code will create a chart visualizing the PC points while also connecting them with lines to demonstrate the decreasing values. 
+plot(myPr, type = "l")
+```
+
+```{r}
+#Q14: Run the code chunk. What does it do? Explain and disscuss the output. 
+###########################################################################
+#Answer: The below code create a biplot visualization of the PC values in myPr. The vector lengths are represented by the red arrows. Its not very readable. 
+
+biplot(myPr)
+```
+
+```{r}
+#Q15: Run the code chunk. Compare to Q14.
+#####################################################################
+#Answer: Compared to the previous code. Some of the values are scaled towards the left. The remain in the same positions. Still not very readable. 
+
+biplot(myPr,scale=0)
+```
+
+```{r}
+#Q16: Run the code chunk. What does it do?
+##################################################
+#Answer: The code prints out only the 5 PC columns in myPR.  
+myPr$x
+```
+
+```{r}
+#Q17: Run the code chunk. What does it do? Explain and discuss the output.
+#######################################################################
+#Answer: The below code does a column bind of the PC values in myPR into the iris data set renaming it iris2.
+iris2 <- cbind(iris,myPr$x)
+iris2
+```
+
+```{r}
+#Q18: Run the code chunk. What deos it do? Explain and disscuss the output.
+############################################################################
+#Answer: The below code creates a visualization chart using the ggplot2 package. From the chart we can see that we have no correlation between the PC values of the setosa flower and we have some correlation between the versicolor and the virginica flowers.
+
+library(ggplot2)
+ggplot(iris2,aes(PC1,PC2,col = Species, fill=Species)) +
+  stat_ellipse(geom="polygon", col = "black", alpha = 0.5) +
+  geom_point(shape = 21, col = "black")
+
+```
+
+```{r}
+#Q19: Run the code chunk. What does it do? Explain and discuss the output.
+###################################################
+#Answer:The below code chunk prints out the PC values for the iris and iris2 data sets. From the output we can see which values have a bigger pull on length and width for the petal and sepals. 
+
+cor(iris[,-5],iris2[,6:9])
+```
+
+
+
+
+
+
+
+
+
+
